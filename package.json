@@ -1,0 +1,21 @@
+{
+  "name": "github-workflows-and-actions-playground",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A repo for me to experiment with GitHub Workflows and GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeusdeux/github-workflows-and-actions-playground.git"
+  },
+  "keywords": [],
+  "author": "Mudit Ameta <zeusdeux@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeusdeux/github-workflows-and-actions-playground/issues"
+  },
+  "homepage": "https://github.com/zeusdeux/github-workflows-and-actions-playground#readme"
+}
