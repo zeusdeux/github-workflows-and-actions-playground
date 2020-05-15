@@ -1,0 +1,39 @@
+name: Workflow and actions experiments
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  strategy-as-a-way-to-abstract:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        working-dir: [ui, server]
+        include:
+          - working-dir: ui
+            node-version: 10.x
+          - working-dir: server
+            node-version: 12.x
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.working-dir }}
+        
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Verify node version
+        run: node -v
+          
+      - name: Run index.js
+        run: node index.js
+        
+      - run: "Done!"
