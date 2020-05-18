@@ -2,13 +2,13 @@ name: Workflow and actions experiments
 
 on:
   push:
-    branches: 
+    branches:
       - master
 
 jobs:
   strategy-as-a-way-to-abstract:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         working-dir: [ui, server]
@@ -21,22 +21,30 @@ jobs:
     defaults:
       run:
         working-directory: ${{ matrix.working-dir }}
-        
+
+    env:
+      GITHUB_SHORT_SHA_1: ${GITHUB_SHA::8}
+      GITHUB_SHORT_SHA_2: $(echo $GITHUB_SHA | cut -c 1-8)
+
     steps:
       - uses: actions/checkout@v2
-        
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      
+
+      - name: Print github short shas
+        run: |
+          echo "SHA 1: $GITHUB_SHORT_SHA_1"
+          echo "SHA 2: $GITHUB_SHORT_SHA_2"
       - name: Print working directory
         run: pwd
-        
+
       - name: Verify node version
         run: node -v
-          
+
       - name: Run index.js
         run: node index.js
-        
+
       - run: echo "Done!"
