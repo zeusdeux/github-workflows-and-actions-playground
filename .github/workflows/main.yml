@@ -36,8 +36,11 @@ jobs:
 
       - name: Print github short shas
         run: |
-          echo "SHA 1: $GITHUB_SHORT_SHA_1"
-          echo "SHA 2: $GITHUB_SHORT_SHA_2"
+          echo "GITHUB_SHA: $GITHUB_SHA"
+          echo 
+          echo "SHA 1: $GITHUB_SHORT_SHA_1 should be $(echo $GITHUB_SHA | cut -c 1-8)"
+          echo "SHA 2: $GITHUB_SHORT_SHA_2 should be ${GITHUB_SHA::8}"
+          
       - name: Print working directory
         run: pwd
 
