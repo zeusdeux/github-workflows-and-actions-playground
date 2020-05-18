@@ -23,6 +23,7 @@ jobs:
         working-directory: ${{ matrix.working-dir }}
 
     env:
+      IMAGE_REPOSITORY: 123715493846.dkr.ecr.us-east-1.amazonaws.com
       GITHUB_SHORT_SHA_1: ${GITHUB_SHA::8}
       GITHUB_SHORT_SHA_2: $(echo $GITHUB_SHA | cut -c 1-8)
 
@@ -41,7 +42,10 @@ jobs:
         run: export GITHUB_SHORT_SHA_4=$(echo $GITHUB_SHA | cut -c 1-8)
       
       - name: Use workflow command to set github short sha env var
-        run: echo "::set-env name=GITHUB_SHORT_SHA_5::${GITHUB_SHA::8}"
+        run: |
+          echo "::set-env name=GITHUB_SHORT_SHA_5::${GITHUB_SHA::8}"
+          echo "::set-env name=IMAGE_TAG::${GITHUB_SHA::8}"
+          echo "::set-env name=IMAGE::${IMAGE_REPOSITORY}/boop:${IMAGE_TAG}"
 
       - name: Print github short shas
         run: |
@@ -52,6 +56,10 @@ jobs:
           echo "GITHUB_SHORT_SHA_3: $GITHUB_SHORT_SHA_3"
           echo "GITHUB_SHORT_SHA_4: $GITHUB_SHORT_SHA_4"
           echo "GITHUB_SHORT_SHA_5: $GITHUB_SHORT_SHA_5"
+      
+      - name: Print IMAGE
+        run: |
+          echo "IMAGE: $IMAGE"
           
       - name: Print working directory
         run: pwd
