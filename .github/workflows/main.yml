@@ -39,6 +39,9 @@ jobs:
 
       - name: Export GitHub short sha with cut
         run: export GITHUB_SHORT_SHA_4=$(echo $GITHUB_SHA | cut -c 1-8)
+      
+      - name: Use workflow command to set github short sha env var
+        run: echo '::set-env name=GITHUB_SHORT_SHA_5::${GITHUB_SHA::8}'
 
       - name: Print github short shas
         run: |
@@ -48,6 +51,7 @@ jobs:
           echo "GITHUB_SHORT_SHA_2: $GITHUB_SHORT_SHA_2"
           echo "GITHUB_SHORT_SHA_3: $GITHUB_SHORT_SHA_3"
           echo "GITHUB_SHORT_SHA_4: $GITHUB_SHORT_SHA_4"
+          echo "GITHUB_SHORT_SHA_5: $GITHUB_SHORT_SHA_5"
           
       - name: Print working directory
         run: pwd
