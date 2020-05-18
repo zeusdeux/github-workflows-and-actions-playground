@@ -33,13 +33,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      
+      - name: Export GitHub short sha
+        run: export GITHUB_SHORT_SHA_3=${GITHUB_SHA::8}
 
       - name: Print github short shas
         run: |
           echo "GITHUB_SHA: $GITHUB_SHA"
           echo 
-          echo "SHA 1: $GITHUB_SHORT_SHA_1 should be $(echo $GITHUB_SHA | cut -c 1-8)"
-          echo "SHA 2: $GITHUB_SHORT_SHA_2 should be ${GITHUB_SHA::8}"
+          echo "SHA 1: $GITHUB_SHORT_SHA_1 via env directive with a bashism"
+          echo "SHA 2: $GITHUB_SHORT_SHA_2 via env directive that uses cut -c 1-8"
+          echo "SHA 3: $GITHUB_SHORT_SHA_3 exported in a tep"
           
       - name: Print working directory
         run: pwd
